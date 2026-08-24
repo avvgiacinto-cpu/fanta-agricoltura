@@ -561,6 +561,18 @@
 </footer>
 
 <script>
+window.addEventListener('error', function(e){
+  try{
+    const main = document.getElementById('main');
+    if(main){
+      main.innerHTML = '<div style="color:#ffb4b4;padding:20px;font-family:monospace;font-size:12px;line-height:1.6;">'
+        + '⚠️ Errore JavaScript:<br><br>' + (e.message || 'sconosciuto')
+        + '<br>Riga: ' + (e.lineno || '?')
+        + '</div>';
+    }
+  }catch(_){}
+});
+
 const ROLES = {
   P: "Portieri",
   D: "Difensori",
@@ -619,16 +631,4 @@ let storageAvailable = true;
 
 function defaultState(){
   const s = {};
-  Object.keys(DATA).forEach(r=>{
-    s[r] = DATA[r].map(()=>({ stage:0, secured:false, manualName:'' }));
-  });
-  return s;
-}
-
-function loadState(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return defaultState();
-    const parsed = JSON.parse(raw);
-    // basic shape validation: make sure every role/slot exists, fallback per-missing-entry
-    const base = defaultState();
+  Object.k
