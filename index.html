@@ -565,14 +565,16 @@ window.addEventListener('error', function(e){
   try{
     const main = document.getElementById('main');
     if(main){
-      main.innerHTML = '<div style="color:#ffb4b4;padding:20px;font-family:monospace;font-size:12px;line-height:1.6;">'
-        + '⚠️ Errore JavaScript:<br><br>' + (e.message || 'sconosciuto')
-        + '<br>Riga: ' + (e.lineno || '?')
+      main.innerHTML = '<div style="color:#ffb4b4;padding:20px;font-family:monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;">'
+        + '⚠️ Errore JavaScript — mostra questo screenshot a Claude:<br><br>'
+        + 'Messaggio: ' + (e.message || 'sconosciuto')
+        + '<br>Riga: ' + (e.lineno || '?') + ', colonna: ' + (e.colno || '?')
         + '</div>';
     }
   }catch(_){}
 });
-
+</script>
+<script>
 const ROLES = {
   P: "Portieri",
   D: "Difensori",
@@ -625,10 +627,4 @@ const DATA = {
   ]
 };
 
-// state[role][idx] = { stage: 0|1|2|3 (0=primary,1=alt1,2=alt2,3=manual), secured:false, manualName:'' }
-const STORAGE_KEY = 'fantacalcio-draft-2026-27-state';
-let storageAvailable = true;
-
-function defaultState(){
-  const s = {};
-  Object.k
+// state[role][idx] = { stage: 0|1|2|3 (0=primary,1=alt1,2=alt2,3=manual), secured:fal
